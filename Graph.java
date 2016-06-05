@@ -2,41 +2,14 @@ import java.util.*;
 
 class Graph {
 
-	static class Vertex {
-		public int index;
-
-		public Vertex (int index) {
-			this.index = index;
-		}
-
-		@Override
-		public boolean equals (Object obj) {
-			if (obj == null) return false;
-
-			if (!Vertex.class.isAssignableFrom(obj.getClass())) {
-        		return false;
-    		}
-
-			final Vertex v = (Vertex) obj;
-			return v.index == this.index;
-		}
-
-		@Override
-		public int hashCode() {
-		    int hash = 3;
-		    hash = 53 * hash + (new Integer(this.index).hashCode());
-		    return hash;
-		}
-	}
-
 	public static class Edge implements Comparable <Edge> {
-		public Vertex u;
-		public Vertex v;
+		public Integer u;
+		public Integer v;
 		public int w;
 
 		public Edge (int u, int v, int w) {
-			this.u = new Vertex(u);
-			this.v = new Vertex(v);
+			this.u = new Integer(u);
+			this.v = new Integer(v);
 			this.w = w;
 		}
 
@@ -47,44 +20,38 @@ class Graph {
 
 		@Override
 		public String toString() {
-			String str = "FROM: " + this.u.index +
-						" TO: " + this.v.index +
+			String str = "FROM: " + this.u +
+						" TO: " + this.v +
 						" WEIGHT: " + this.w;
 			return str;
 		}
 	}
 
 	public Edge[] edges;
-	public Vertex[] vertexs;
 	public int V;
 	public int E;
 
 	public Graph (Edge[] edges, int V) {
 		this.E = edges.length;
 		this.edges = edges;
-
 		this.V = V;
-		vertexs = new Vertex [V];
-		for (int i = 0; i < V; i++) {
-			vertexs[i] = new Vertex(i + 1);
-		}
 	}
 
 	public Edge[] MST_Kruskal () {
 		HashSet<Edge> A = new HashSet<>();
-		LinkedList<HashSet<Vertex>> forest = new LinkedList<>();
+		LinkedList<HashSet<Integer>> forest = new LinkedList<>();
 
 		for (int i = 0; i < V; i++) {
-			HashSet<Vertex> set = new HashSet<>();
-			set.add(vertexs[i]);
+			HashSet<Integer> set = new HashSet<>();
+			set.add(i + 1);
 			forest.add(set);
 		}
 
 		Arrays.sort(edges);
 
 		for (Edge e : edges) {
-			HashSet<Vertex> tree = null;
-			for (HashSet<Vertex> t : forest) {
+			HashSet<Integer> tree = null;
+			for (HashSet<Integer> t : forest) {
 				if (t.contains(e.u)) {
 					tree = t;
 					break;
@@ -95,7 +62,7 @@ class Graph {
 				A.add(e);
 				forest.remove(tree);
 
-				for (HashSet<Vertex> t : forest) {
+				for (HashSet<Integer> t : forest) {
 					if (t.contains(e.v)) {
 						t.addAll(tree);
 						break;
