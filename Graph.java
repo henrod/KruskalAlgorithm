@@ -55,7 +55,7 @@ class Graph {
 	}
 
 	public Edge[] edges;
-	public Vertex[] vertexs;
+	public Vertex[] vertices;
 	public int V;
 	public int E;
 
@@ -64,9 +64,9 @@ class Graph {
 		this.edges = edges;
 
 		this.V = V;
-		vertexs = new Vertex [V];
+		vertices = new Vertex [V];
 		for (int i = 0; i < V; i++) {
-			vertexs[i] = new Vertex(i + 1);
+			vertices[i] = new Vertex(i + 1);
 		}
 	}
 
@@ -76,7 +76,7 @@ class Graph {
 
 		for (int i = 0; i < V; i++) {
 			HashSet<Vertex> set = new HashSet<>();
-			set.add(vertexs[i]);
+			set.add(vertices[i]);
 			forest.add(set);
 		}
 
