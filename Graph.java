@@ -4,15 +4,11 @@ class Graph {
 
 	public Edge[] edges;
 	public Vertex[] vertices;
-	public int V;
-	public int E;
 
 	public Graph (Edge[] edges, int V) {
-		this.E = edges.length;
 		this.edges = edges;
-
-		this.V = V;
 		vertices = new Vertex [V];
+		
 		for (int i = 0; i < V; i++) {
 			vertices[i] = new Vertex(i + 1);
 		}
@@ -20,13 +16,13 @@ class Graph {
 
 	public Edge[] MST_Kruskal () {
 		List<Edge> A = new LinkedList<>();
-		DisjointSet set = new DisjointSet(V);
+		DisjointSet set = new DisjointSet(vertices.length);
 		Arrays.sort(edges);
 
 		for (Edge e : edges) {
-			if (set.find(e.u.index) != set.find(e.v.index)) {
+			if (set.find(e.src.index) != set.find(e.dst.index)) {
 				A.add(e);
-				set.union(e.u.index, e.v.index);
+				set.union(e.src.index, e.dst.index);
 			}
 		}
 

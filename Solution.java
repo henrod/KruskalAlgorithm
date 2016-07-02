@@ -9,28 +9,28 @@ class Solution {
 		try {
 			Scanner sc = new Scanner(new File(FILE_NAME));
 
-			int N = sc.nextInt();
-			int M = sc.nextInt();
+			int N_vertices = sc.nextInt();
+			int N_edges = sc.nextInt();
 
-			Edge[] edges = new Edge [M];
+			Edge[] edges = new Edge [N_edges];
 
-			for (int i = 0; i < M; i++) {
-				int u = sc.nextInt();
-				int v = sc.nextInt();
-				int w = sc.nextInt();
+			for (int i = 0; i < N_edges; i++) {
+				int src = sc.nextInt();
+				int dst = sc.nextInt();
+				int weight = sc.nextInt();
 
-				Edge edge = new Edge(u, v, w);
+				Edge edge = new Edge(src, dst, weight);
 
 				edges[i] = edge;
 			}
 
-			Graph G = new Graph(edges, N);
+			Graph G = new Graph(edges, N_vertices);
 			Edge[] mst = G.MST_Kruskal();
 
 			int sum = 0;
 			for (Edge e : mst) {
 				System.out.println(e.toString());
-				sum += e.w;
+				sum += e.weight;
 			}
 
 			System.out.println("TOTAL MINIMUM WEIGHT: " + sum);

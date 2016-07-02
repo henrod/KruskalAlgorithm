@@ -1,24 +1,24 @@
 class Edge implements Comparable <Edge> {
-	public Vertex u;
-	public Vertex v;
-	public int w;
+	public Vertex src;
+	public Vertex dst;
+	public int weight;
 
-	public Edge (int u, int v, int w) {
-		this.u = new Vertex(u);
-		this.v = new Vertex(v);
-		this.w = w;
+	public Edge (int src, int dst, int weight) {
+		this.src = new Vertex(src);
+		this.dst = new Vertex(dst);
+		this.weight = weight;
 	}
 
 	@Override
 	public int compareTo (Edge e) {
-		return this.w - e.w;
+		return this.weight - e.weight;
 	}
 
 	@Override
 	public String toString() {
-		String str = "FROM: " + this.u.index +
-					" TO: " + this.v.index +
-					" WEIGHT: " + this.w;
+		String str = "FROM: " + this.src.index +
+					" TO: " + this.dst.index +
+					" WEIGHT: " + this.weight;
 		return str;
 	}
 }
