@@ -1,32 +1,41 @@
 import java.util.*;
+import java.io.*;
 
 class Solution {
+
+	private static final String FILE_NAME = "input.txt";
+
 	public static void main (String[] args) {
-		Scanner sc = new Scanner(System.in);
+		try {
+			Scanner sc = new Scanner(new File(FILE_NAME));
 
-		int N = sc.nextInt();
-		int M = sc.nextInt();
+			int N = sc.nextInt();
+			int M = sc.nextInt();
 
-		Graph.Edge[] edges = new Graph.Edge [M];
+			Edge[] edges = new Edge [M];
 
-		for (int i = 0; i < M; i++) {
-			int u = sc.nextInt();
-			int v = sc.nextInt();
-			int w = sc.nextInt();
+			for (int i = 0; i < M; i++) {
+				int u = sc.nextInt();
+				int v = sc.nextInt();
+				int w = sc.nextInt();
 
-			Graph.Edge edge = new Graph.Edge(u, v, w);
+				Edge edge = new Edge(u, v, w);
 
-			edges[i] = edge;
+				edges[i] = edge;
+			}
+
+			Graph G = new Graph(edges, N);
+			Edge[] mst = G.MST_Kruskal();
+
+			int sum = 0;
+			for (Edge e : mst) {
+				System.out.println(e.toString());
+				sum += e.w;
+			}
+
+			System.out.println("TOTAL MINIMUM WEIGHT: " + sum);
+		} catch (FileNotFoundException e) {
+			System.out.println(e.toString());
 		}
-
-		Graph G = new Graph(edges, N);
-		Graph.Edge[] mst = G.MST_Kruskal();
-
-		int sum = 0;
-		for (Graph.Edge e : mst) {
-			sum += e.w;
-		}
-
-		System.out.println(sum);
 	}
 }
